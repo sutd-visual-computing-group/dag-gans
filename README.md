@@ -64,8 +64,8 @@ The modified discriminator:
 
 ```python
 class Discriminator(nn.Module):
-    def __init__(self):
-        super(Discriminator, self, n_augments).__init__()
+    def __init__(self, n_augments):
+        super(Discriminator, self).__init__()
         ...
         self.n_augments = n_augments
         ...
