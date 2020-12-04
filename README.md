@@ -74,12 +74,12 @@ class Discriminator(nn.Module):
         for i in range(self.n_dag_heads):
             self.linears_dag[i] = nn.Linear(4*4*4*DIM, 1)
 
-	def forward(self, input):
+    def forward(self, input):
         ...
         feature = output.view(-1, 4*4*4*DIM)
-	    output  = self.linear(feature)
-	    # dag heads
-	    dag_outputs = []
+        output  = self.linear(feature)
+        # dag heads
+        dag_outputs = []
         for i in range(self.n_dag_heads):
             dag_outputs[i] = = self.linears_dag[i](feature)
         return output, dag_outputs
