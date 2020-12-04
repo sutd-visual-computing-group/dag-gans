@@ -21,8 +21,8 @@ n_dag_heads = dag.get_num_of_augments()
 
 ```
 - *augument_type*: the augmentation methods to be used in DAG.
-- *D_loss_func*: the function of the discriminator loss.
-- *G_loss_func*: the function of the generator loss.
+- *D_loss_func*: the function of the discriminator loss (see step 2).
+- *G_loss_func*: the function of the generator loss (see step 2).
 - *get_num_of_augments()*: to return the number of heads to implement DAG in the discriminator.
 
 #### Step 2: Defining the loss functions for discriminator and generator
