@@ -16,7 +16,7 @@ from dag.dag_pytorch import DAG
 ... 
 
 dag = DAG(D_loss_func, G_loss_func, augument_type=['rotation', 'cropping'])
-n_dag_heads = dag.get_num_of_augments()
+n_augments = dag.get_num_of_augments()
 ...
 
 ```
