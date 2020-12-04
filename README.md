@@ -10,7 +10,7 @@ We provide the DAG modules in pytorch and tensorflow, which can be easily integr
 
 To copy our *dag* module into your workspace and include the module into your code as follows:
 
-```
+```python
 from dag.dag_pytorch as DAG
 
 ... 
@@ -29,12 +29,12 @@ n_dag_heads = dag.get_num_of_augments()
 
 To use DAG, we need the functions of computing losses of D and G to apply it automatically on augmented samples:
 
-```
+```python
 def D_loss_func(x_real, x_fake):
     return D
 ```
 
-```
+```python
 def G_loss_func(x_real, x_fake):
     return G
 ```
@@ -44,7 +44,8 @@ def G_loss_func(x_real, x_fake):
 To modify the discriminator architecture according to the number of augmentations used in the DAG. For example:
 
 The original discriminator:
-```
+
+```python
 class Discriminator(nn.Module):
     def __init__(self):
         super(Discriminator, self).__init__()
@@ -58,8 +59,10 @@ class Discriminator(nn.Module):
         output = self.linear(output)
         return output
 ```
+
 The modified discriminator:
-```
+
+```python
 class Discriminator(nn.Module):
     def __init__(self):
         super(Discriminator, self, n_dag_heads).__init__()
