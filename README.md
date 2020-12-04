@@ -39,7 +39,7 @@ def G_loss_func(x_real, x_fake):
     return G
 ```
 
-#### Step 3: Alternating the outputs of discriminator
+#### Step 3: Modifying the outputs of the discriminator
 
 To modify the discriminator architecture according to the number of augmentations used in the DAG. For example:
 
