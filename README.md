@@ -11,7 +11,7 @@ We provide the DAG modules in pytorch and tensorflow, which can be easily integr
 To copy our *dag* module into your workspace and include the module into your code as follows:
 
 ```python
-from dag.dag_pytorch as DAG
+from dag.dag_pytorch import DAG
 
 ... 
 
@@ -65,24 +65,24 @@ The modified discriminator:
 ```python
 class Discriminator(nn.Module):
     def __init__(self):
-        super(Discriminator, self, n_dag_heads).__init__()
+        super(Discriminator, self, n_augments).__init__()
         ...
-        self.n_dag_heads = n_dag_heads
+        self.n_augments = n_augments
         ...
         self.linear = nn.Linear(4*4*4*DIM, 1)
         self.linears_dag = []
-        for i in range(self.n_dag_heads):
-            self.linears_dag[i] = nn.Linear(4*4*4*DIM, 1)
+        for i in range(self.n_augments):
+            self.linears_dag[i].append(nn.Linear(4*4*4*DIM, 1))
 
     def forward(self, input):
         ...
         feature = output.view(-1, 4*4*4*DIM)
         output  = self.linear(feature)
         # dag heads
-        dag_outputs = []
-        for i in range(self.n_dag_heads):
-            dag_outputs[i] = = self.linears_dag[i](feature)
-        return output, dag_outputs
+        outputs_dag = []
+        for i in range(self.n_augments):
+            outputs_dag[i].append(self.linears_dag[i](feature))
+        return output, outputs_dag
 ```
 
 
