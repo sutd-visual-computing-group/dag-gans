@@ -1,6 +1,6 @@
 import torch
 
-from utils import augmenting_data
+from dag.utils import augmenting_data
 
 rotations = [0, 90, 180, 270]
 
@@ -15,7 +15,7 @@ class DAG(object):
         self.G_loss_func   = G_loss_func
         self.augument_type = augument_type
 
-    def get_num_of_augments():
+    def get_num_of_augments(self):
         num_of_augments = 0
         for i in range(len(self.augument_type)):
             num_of_augments += len(augment_list[self.augument_type[i]])

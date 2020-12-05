@@ -27,16 +27,33 @@ n_augments = dag.get_num_of_augments()
 
 #### Step 2: Defining the loss functions for discriminator and generator
 
-To use DAG, we need the functions of computing losses of D and G to apply it automatically on augmented samples:
+To use DAG, we need the functions of computing losses of D and G to apply it automatically on augmented samples. Followings are examples of GAN and WGAN losses:
+
+##### WGAN loss
 
 ```python
-def D_loss_func(x_real, x_fake):
-    return D
+def D_loss_func(x_real, x_fake, netD):
+    # real
+    d_real, _ = netD(x_real)
+    d_real    = d_real.mean()
+    # fake    
+    d_fake, _ = netD(x_fake)
+    d_fake,   = d_fake.mean()
+    # train with gradient penalty
+    gp = calc_gradient_penalty(netD, real_data_v.data, fake.data)    
+    # D cost
+    d_cost = d_fake - d_real + gp
+    return d_cost
 ```
 
 ```python
-def G_loss_func(x_real, x_fake):
-    return G
+def G_loss_func(x_real, x_fake, netD):
+    # fake    
+    d_fake, _ = netD(x_fake)
+    d_fake    = d_fake.mean()
+    # D cost
+    g_cost = -d_fake
+    return g_cost
 ```
 
 #### Step 3: Modifying the outputs of the discriminator
@@ -72,7 +89,8 @@ class Discriminator(nn.Module):
         self.linear = nn.Linear(4*4*4*DIM, 1)
         self.linears_dag = []
         for i in range(self.n_augments):
-            self.linears_dag[i].append(nn.Linear(4*4*4*DIM, 1))
+            self.linears_dag.append(nn.Linear(4*4*4*DIM, 1))
+        self.linears_dag = nn.ModuleList(self.linears_dag)
 
     def forward(self, input):
         ...
@@ -85,4 +103,14 @@ class Discriminator(nn.Module):
         return output, outputs_dag
 ```
 
+Note that the modified discriminator has mulitple outputs, you need to modify the number of outputs when calling discriminator function. For example:
+
+From: 
+```python
+d_real = Discriminator(x_real)
+```
+To:
+```python
+d_real, _ = Discriminator(x_real)
+```
 
