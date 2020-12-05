@@ -40,7 +40,7 @@ def D_loss_func(x_real, x_fake, netD):
     d_fake, _ = netD(x_fake)
     d_fake,   = d_fake.mean()
     # train with gradient penalty
-    gp = calc_gradient_penalty(netD, real_data_v.data, fake.data)    
+    gp = calc_gradient_penalty(netD, x_real, x_fake)    
     # D cost
     d_cost = d_fake - d_real + gp
     return d_cost
@@ -107,10 +107,12 @@ Note that the modified discriminator has mulitple outputs, you need to modify th
 
 From: 
 ```python
-d_real = Discriminator(x_real)
+netD = Discriminator()
+d_real = netD(x_real)
 ```
 To:
 ```python
-d_real, _ = Discriminator(x_real)
+netD = Discriminator(n_augments=n_augments)
+d_real, _ = netD(x_real)
 ```
 
