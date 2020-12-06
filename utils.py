@@ -6,18 +6,25 @@ def rotation(x, degs):
         if deg == 0:
            x_rot.append(x)
         elif deg == 90:
-           x_rot.append(x.flip(2))
+           x_rot.append(x.transpose(2, 3).flip(2))
         elif deg == 180:
            x_rot.append(x.flip(2).flip(3))
         elif deg == 270:
-           x_rot.append(x.flip(3))
+           x_rot.append(x.transpose(2, 3).flip(3))
     return x_rot
     
 def fliprot(x, aug):
-    return [x, x, x, x]
+    x_flip = []
+    x_flip.append(x)
+    x_flip.append(x.flip(2))
+    x_flip.append(x.flip(3))
+    x_flip.append(x.transpose(2, 3).flip(2))
+    return x_flip
 
 def cropping(x, aug):
-    return [x, x, x, x]
+    x_crop = []
+    x_crop.append(x)
+    return x_crop
 
 def augmenting_data(x, aug, aug_list):
     if aug == 'rotation':

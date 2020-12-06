@@ -17,6 +17,13 @@ class DAG(object):
             num_of_augments += len(config.augment_list[self.augument_type[i]])
         return num_of_augments
 
+    def get_augmented_samples(self, x):
+        x_arg = []
+        n_type = len(self.augument_type)
+        for aug_type in self.augument_type:
+            x_arg.append(augmenting_data(x, aug_type, config.augment_list[aug_type]))
+        return x_arg
+
     def compute_discriminator_loss(self, x_real, x_fake, netD):
           
         ''' compute D loss for original augmented real/fake data samples '''
@@ -51,4 +58,11 @@ class DAG(object):
         
         g_loss = g_loss / n_type
 
-        return g_loss          
+        return g_loss
+
+
+if __name__="__main__":
+
+    dag = DAG(None, None, augument_type=['rotation'])
+    
+    dag.get_augmented_samples()
