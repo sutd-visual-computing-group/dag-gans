@@ -21,42 +21,11 @@ n_augments = dag.get_num_of_augments()
 
 ```
 - *augument_type*: the augmentation methods to be used in DAG.
-- *D_loss_func*: the function of the discriminator loss (see step 2).
-- *G_loss_func*: the function of the generator loss (see step 2).
+- *D_loss_func*: the function of the discriminator loss (see step 3).
+- *G_loss_func*: the function of the generator loss (see step 3).
 - *get_num_of_augments()*: to return the number of heads to implement DAG in the discriminator.
 
-#### Step 2: Defining the loss functions for discriminator and generator
-
-To use DAG, we need the functions of computing losses of D and G to apply it automatically on augmented samples. Followings are examples of GAN and WGAN losses:
-
-##### WGAN loss
-
-```python
-def D_loss_func(x_real, x_fake, netD):
-    # real
-    d_real, _ = netD(x_real)
-    d_real    = d_real.mean()
-    # fake    
-    d_fake, _ = netD(x_fake)
-    d_fake,   = d_fake.mean()
-    # train with gradient penalty
-    gp = calc_gradient_penalty(netD, x_real, x_fake)    
-    # D cost
-    d_cost = d_fake - d_real + gp
-    return d_cost
-```
-
-```python
-def G_loss_func(x_real, x_fake, netD):
-    # fake    
-    d_fake, _ = netD(x_fake)
-    d_fake    = d_fake.mean()
-    # D cost
-    g_cost = -d_fake
-    return g_cost
-```
-
-#### Step 3: Modifying the outputs of the discriminator
+#### Step 2: Modifying the outputs of the discriminator
 
 To modify the discriminator architecture according to the number of augmentations used in the DAG. For example:
 
@@ -114,5 +83,36 @@ To:
 ```python
 netD = Discriminator(n_augments=n_augments)
 d_real, _ = netD(x_real)
+```
+
+#### Step 3: Defining the loss functions for discriminator and generator
+
+To use DAG, we need the functions of computing losses of D and G to apply it automatically on augmented samples. Followings are examples of GAN and WGAN losses:
+
+##### WGAN loss
+
+```python
+def D_loss_func(x_real, x_fake, netD):
+    # real
+    d_real, _ = netD(x_real)
+    d_real    = d_real.mean()
+    # fake    
+    d_fake, _ = netD(x_fake)
+    d_fake,   = d_fake.mean()
+    # train with gradient penalty
+    gp = calc_gradient_penalty(netD, x_real, x_fake)    
+    # D cost
+    d_cost = d_fake - d_real + gp
+    return d_cost
+```
+
+```python
+def G_loss_func(x_real, x_fake, netD):
+    # fake    
+    d_fake, _ = netD(x_fake)
+    d_fake    = d_fake.mean()
+    # D cost
+    g_cost = -d_fake
+    return g_cost
 ```
 
