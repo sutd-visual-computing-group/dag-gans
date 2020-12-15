@@ -3,7 +3,6 @@ import torch
 from   dag.utils import augmenting_data
 import dag.config as config
 
-
 class DAG(object):
     def __init__(self, D_loss_func, G_loss_func, augument_type=['rotation']):
         print('Initializing DAG ...')
@@ -22,13 +21,13 @@ class DAG(object):
         n_type = len(self.augument_type)
         for aug_type in self.augument_type:
             x_arg.append(augmenting_data(x, aug_type, config.augment_list[aug_type]))
+        x_arg = torch.cat(x_arg,0)
         return x_arg
 
     def compute_discriminator_loss(self, x_real, x_fake, netD):
           
         ''' compute D loss for original augmented real/fake data samples '''
         d_loss = 0
-                
         n_type = len(self.augument_type)
         
         for aug_type in self.augument_type:
@@ -46,7 +45,6 @@ class DAG(object):
           
         ''' compute G loss for original augmented real/fake data samples '''
         g_loss = 0
-        
         n_type = len(self.augument_type)
         
         for aug_type in self.augument_type:
@@ -61,8 +59,30 @@ class DAG(object):
         return g_loss
 
 
-if __name__="__main__":
+if __name__ == "__main__":
 
-    dag = DAG(None, None, augument_type=['rotation'])
+    import torchvision
+    import torchvision.utils as vutils
+    import torchvision.transforms as transforms
     
-    dag.get_augmented_samples()
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+
+    transform_test = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+        ])
+
+    testset    = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=True, num_workers=6, drop_last=True)
+
+    augument_type=['cropping']
+    dag = DAG(None, None, augument_type=augument_type)
+
+    for batch_idx, (inputs, targets) in enumerate(testloader):
+        inputs, targets = inputs.to(device), targets.to(device)
+        inputs_aug = dag.get_augmented_samples(inputs)
+        for i in range(len(inputs_aug)):
+            vutils.save_image(torch.tensor(inputs_aug[i]), 'output_{}_{}.png'.format(augument_type[0], i), normalize=True, scale_each=True, nrow=10)
+        break
+        
