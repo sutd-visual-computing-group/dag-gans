@@ -1,8 +1,14 @@
 # Data Augmentation optimized for GAN (DAG)
 
-We provide the DAG modules in pytorch and tensorflow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data.
+We provide the DAG modules in pytorch and tensorflow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data. We provide the best augmentation techniques we found in our paper.
+
+It is important to note that our model works with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...). Furthermore, the more augmentations to be used, the better performance DAG improves your GAN model (there may be a trade off with computation). It is also easy for users to define their own augmentations with the module.
+
+We also provide some examples to improve BigGAN, StyleGAN backbones and some other popular GAN on githubs to demonstrate.
 
 ## How to use
+
+Our module is easily integrated into any GAN models with three following simple steps. 
 
 ### Pytorch
 
@@ -15,7 +21,7 @@ from dag.dag_pytorch import DAG
 
 ... 
 
-dag = DAG(D_loss_func, G_loss_func, augment_type=['rotation', 'cropping'])
+dag = DAG(D_loss_func, G_loss_func, augment_type=['fliprot', 'cropping'])
 n_augments = dag.get_num_of_augments()
 ...
 
@@ -115,4 +121,8 @@ def G_loss_func(x_real, x_fake, netD):
     g_cost = -d_fake
     return g_cost
 ```
+
+
+# References
+- We use [RoIAlign for PyTorch](https://github.com/longcw/RoIAlign.pytorch) for our cropping augmentation.
 
