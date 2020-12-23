@@ -21,7 +21,7 @@ from dag.dag_pytorch import DAG
 
 ... 
 
-dag = DAG(D_loss_func, G_loss_func, augment_type=['fliprot', 'cropping'])
+dag = DAG(D_loss_func, G_loss_func, augment_type=['fliprot'])
 n_augments = dag.get_num_of_augments()
 ...
 
@@ -122,7 +122,17 @@ def G_loss_func(x_real, x_fake, netD):
     return g_cost
 ```
 
+To use more augmentation techniques: 
 
-# References
-- We use [RoIAlign for PyTorch](https://github.com/longcw/RoIAlign.pytorch) for our cropping augmentation.
+```python
+from dag.dag_pytorch import DAG
+
+... 
+
+dag_fliprot  = DAG(D_loss_func, G_loss_func, augment_type=['fliprot'])
+dag_cropping = DAG(D_loss_func, G_loss_func, augment_type=['cropping'])
+n_augments = dag_fliprot.get_num_of_augments() + dag_cropping.get_num_of_augments()
+...
+
+```
 
