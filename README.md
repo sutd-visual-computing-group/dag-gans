@@ -1,10 +1,10 @@
 # Data Augmentation optimized for GAN (DAG)
 
-We provide the DAG modules in pytorch and tensorflow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data. We provide the best augmentation techniques (fliprot + cropping) as discused in our paper. However, our DAG is not limited to these augmentation, the more augmentation to be used, the better improvements DAG gets.
+- We provide the DAG modules in pytorch and tensorflow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data. We only illustrate the best augmentation techniques (rotation + cropping and fliprot + cropping) as discused in our paper. However, our DAG is not limited to these augmentations, the more augmentation to be used, the better improvements DAG enhances the GAN models. However, there is a trade off with computation when adding more augmentation. It is also easy to design your own augmentations with the modules.
 
-However, it is also important to note that our DAG is not limited to these augmentations. Our model works well with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...). Furthermore, the more augmentations to be used, the better performance DAG improves GAN models (However, there is a trade off with computation). It is also easy for users to define their own augmentations with the module.
+- It is also important to note that our model works well with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...) and if the augmentation is invertible, the convergence is theoretically guaranteed.
 
-We also provide some implementations to improve BigGAN, StyleGAN backbones to compare concurrent works on Data-efficient GAN.
+- We also provide some implementations to improve BigGAN, StyleGAN backbones to compare concurrent works on Data-efficient GAN.
 
 ## How to use
 
