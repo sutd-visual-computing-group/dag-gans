@@ -6,7 +6,7 @@
 
 - It is also important to note that our model works well with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...) and if the augmentation is invertible, the convergence is theoretically guaranteed.
 
-- We also provide some implementations to improve [BigGAN]('./pytorch/biggan/cifar10'), StyleGAN backbones to compare concurrent works on Data-efficient GAN.
+- We also provide some implementations to improve [BigGAN](tree/main/examples/pytorch/biggan), StyleGAN backbones to compare concurrent works on Data-efficient GAN.
 
 ## How to use
 
