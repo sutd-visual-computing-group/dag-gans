@@ -7,10 +7,9 @@ We share our BigGAN + DAG can be replaced in the original code of Data-Efficient
 | BigGAN                                   | `C10` (10%)       | 7.03      | 48.3      |
 | BigGAN-DiffAugment (translation + cutout)| `C10` (10%)       | 8.40      | 23.9      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (10%)       | 8.63      | 23.6      |
-| BigGAN-DAG (fliprot + cropping)          | `C10` (10%)       | 8.50      | 23.9      |
-| BigGAN                                   | `C10` (20%)       | 0.00      | 0.00      |
+| BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (10%)       | 8.65      | 21.3      |
+| BigGAN                                   | `C10` (20%)       | 8.51      | 22.3      |
 | BigGAN-DiffAugment (translation + cutout)| `C10` (20%)       | 8.79      | 14.6      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
-| BigGAN-DAG (fliprot + cropping)          | `C10` (20%)       | 0.00      | 0.00      |
 
 Note that here we just report the augmetnations of fliprot and cropping as mentioned in our paper. However, our model is not limited to the number of augmentations to be used. To futher improve the performance, you can simply add more data augmentation techniques. 
