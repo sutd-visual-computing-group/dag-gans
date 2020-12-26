@@ -1,6 +1,6 @@
 We use implement our DAG on its BigGAN and StyleGAN2 backbones to fairly compare to the concurrent work of Data-Efficient GANs using its published code: https://github.com/mit-han-lab/data-efficient-gans 
 
-We share our BigGAN + DAG can be replaced in the original code of Data-Efficient GANs paper. Here, we highlight our performance when we reproduce the results (best IS and FID) from the code and compare to Data-Efficient GANs:
+We share our BigGAN + DAG files can be replaced in the original code of Data-Efficient GANs. Here, we highlight our performance when reproducing the results (best IS and FID) the code of Data-Efficient GAN and compare to this work:
 
 | Model name                               | Dataset           | is10k     | fid10k    |
 | -----------------------------------------| ------------------| --------- | --------- |
@@ -12,4 +12,4 @@ We share our BigGAN + DAG can be replaced in the original code of Data-Efficient
 | BigGAN-DiffAugment (translation + cutout)| `C10` (20%)       | 8.79      | 14.6      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
 
-Note that here we just report the augmetnations of fliprot and cropping as mentioned in our paper. However, our model is not limited to the number of augmentations to be used. To futher improve the performance, you can simply add more data augmentation techniques. 
+Note that our model is not limited to above augmentations. To futher improve the performance, you can simply add more data augmentation techniques we you need. 
