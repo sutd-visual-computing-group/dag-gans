@@ -1,6 +1,6 @@
 # Data Augmentation optimized for GAN (DAG) - Official implementation
 
-> **Training Generative Adversarial Networks with Limited Data** <br>
+> **On Data Augmentation for GAN Training** <br>
 > Ngoc-Trung Tran, Viet-Hung Tran, Ngoc-Bao Nguyen, Trung-Kien Nguyen, Ngai-Man Cheung <br>
 > [https://arxiv.org/abs/2006.05338](https://arxiv.org/abs/2006.05338)
 
