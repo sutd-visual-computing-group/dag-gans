@@ -13,3 +13,5 @@ We share our BigGAN + DAG files can be replaced in the original code of Data-Eff
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
 
 Note that our model is not limited to above augmentations. To futher improve the performance, you can simply add more data augmentation techniques you need. 
+
+
