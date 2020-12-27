@@ -11,7 +11,7 @@ Our pytorch module is easily integrated into any GAN models with three following
 To copy our *dag* module into your workspace and include the module into your code as follows:
 
 ```python
-from dag.dag_pytorch import DAG
+from dag.dag import DAG
 
 ... 
 
