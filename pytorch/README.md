@@ -2,7 +2,7 @@
 
 ## How to use
 
-Our pytorch module is easily integrated into any GAN models with three following simple steps. We use this wgan-gp pytorch code to illustrate: [https://github.com/caogang/wgan-gp](https://github.com/caogang/wgan-gp)
+Our pytorch module is easily integrated into any GAN models with three following simple steps. We use this [wgan-gp pytorch code](https://github.com/caogang/wgan-gp) for illustration.
 
 ### Pytorch
 
