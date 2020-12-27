@@ -12,7 +12,7 @@
 
 - It is also important to note that our model works well with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...) and if the augmentation is invertible, the convergence is theoretically guaranteed.
 
-- We also provide some implementations to improve [BigGAN](https://github.com/tntrung/dag/tree/main/examples/pytorch/biggan) backbone and compare one of our concurrent works, Data-efficient GAN [1].
+- We also provide some implementations to improve [BigGAN backbone](https://github.com/tntrung/dag-gans/tree/main/pytorch/examples/biggan) and compare one of our concurrent works, Data-efficient GAN [1].
 
 ## Citation
 
