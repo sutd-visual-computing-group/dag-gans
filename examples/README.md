@@ -1,1 +1,0 @@
-We provide examples of how to integrate our DAG in existing GAN models in both pytorch and tensorflow.
