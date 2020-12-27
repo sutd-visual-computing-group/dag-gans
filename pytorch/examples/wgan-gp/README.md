@@ -1,5 +1,9 @@
 # WGAN-GP + DAG
 
-WGAN-GP pytorch can be downloaded from: https://github.com/caogang/wgan-gp
+Our WGANGP + DAG is implemented based on WGAN-GP pytorch: [https://github.com/caogang/wgan-gp](https://github.com/caogang/wgan-gp)
 
-The WGANGP + DAG is implemented in *gandag_cifar10.py* based on the above source can be download and integrated to use.
+To run program, just need to download the above source and and copy *gandag_cifar10.py* into it.
+
+```
+pytorch gandag_cifar10.py
+```
