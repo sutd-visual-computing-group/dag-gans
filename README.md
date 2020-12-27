@@ -8,7 +8,7 @@
 
 ## Introduction
 
-- We provide the DAG modules in PyTorch and TensorFlow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data. We only illustrate some augmentation techniques (rotation, cropping) as discussed in our paper. However, our DAG is not limited to these augmentations, the more augmentation to be used, the better improvements DAG enhances the GAN models. However, there is a trade-off with computation when adding more augmentation. It is also easy to design your augmentations with the modules.
+- We provide simple implementations of the DAG modules in both PyTorch and TensorFlow, which can be easily integrated into any GAN models to improve the performance, especially in the case of limited data. We only illustrate some augmentation techniques (rotation, cropping) as discussed in our paper. But our DAG is not limited to these augmentations, the more augmentation to be used, the better improvements DAG enhances the GAN models. It is also easy to design your augmentations within the modules. However, there is a trade-off with computation when adding more augmentation.
 
 - It is also important to note that our model works well with any data augmentation techniques, either invertible (rotation, flipping) or non-invertible (translation, cropping, cutout, ...) and if the augmentation is invertible, the convergence is theoretically guaranteed.
 
@@ -28,6 +28,9 @@
 ## Reference
 
 [1] Shengyu Zhao, Zhijian Liu, Ji Lin, Jun-Yan Zhu, and Song Han, "Differentiable Augmentation for Data-Efficient GAN Training", NeurIPS 2020.
+
+
+*To be updated*
 
 
 
