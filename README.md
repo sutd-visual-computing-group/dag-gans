@@ -15,4 +15,18 @@
 - We also provide some implementations to improve [BigGAN](https://github.com/tntrung/dag/tree/main/examples/pytorch/biggan), StyleGAN backbones to compare concurrent works on Data-efficient GAN.
 
 
+## Citation
+
+```
+@article{tran2020dag,
+  title={On Data Augmentation for GAN Training},
+  author={Tran, Ngoc-Trung and Tran, Viet-Hung and Nguyen, Ngoc-Bao and Nguyen, Trung-Kien and Cheung, Ngai-Man},
+  journal={arXiv preprint arXiv:2006.05338},
+  year={2020}
+}
+```
+
+
+
+
 
