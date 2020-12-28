@@ -5,7 +5,7 @@ The implementation based on [Pytorch code](https://github.com/junyanz/pytorch-Cy
 ```
 python train.py --dataroot ./datasets/maps --name maps_cyclegan --model cycle_gan_dag
 ```
-Following the performance we obtained DAG on pytorch code compared to the baseline:
+Following the performance we obtained DAG on pytorch code compared to the baseline on Cityscapes dataset:
 
 | Model name                               | Per-pixel  acc.   | Per-class  acc.  | Class  IOU |
 | -----------------------------------------| ------------------| ---------------- | ---------- |
