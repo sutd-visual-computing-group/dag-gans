@@ -11,7 +11,7 @@ We share our BigGAN + DAG code. Simply substituting these files in the original 
 | BigGAN                                   | `C10` (20%)       | 8.51      | 22.3      |
 | BigGAN-DiffAugment (translation + cutout)| `C10` (20%)       | 8.79      | 14.6      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
-| BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (20%)       | 8.84      | 13.5      |
+| BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (20%)       | 8.84      | 13.1      |
 
 In the above results, we demonstrate that our model can be applied to any data augmentations. For example, when combining our (rotation + cropping) and (translation + cutout) of DiffAugment, DAG can improve the baselines more significantly. To further improve the performance, you can simply add more data augmentation techniques you need. 
 
