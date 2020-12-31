@@ -13,7 +13,7 @@ We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these fil
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
 | BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (20%)       | 8.84      | 13.1      |
 
-In the above results, we demonstrate that our model can be applied to multiple types of augmentations. Moreover, when combining more augmentations, e.g., our (rotation + cropping) and (translation + cutout) of DiffAugment, DAG can improve the baselines more significantly. To apply for your problems, you can add these augmentations or simply design suitable augmentations with DAG.
+In the above results, we demonstrate that our model can be applied to multiple types of augmentations. Moreover, when combining more augmentations, e.g., our (rotation + cropping) and (translation + cutout) of DiffAugment, DAG can improve the baselines more significantly. To apply DAG for your GAN model, you may use above augmentations or simply design yourself augmentations suitable for your problems.
 
 *To be updated soon with other augmentations and datasets.*
 
