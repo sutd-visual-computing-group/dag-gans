@@ -1,6 +1,6 @@
 We implement our DAG on its BigGAN based on [DiffAugment](https://github.com/mit-han-lab/data-efficient-gans) for a fair comparision to this work. 
 
-We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these files in the original code. We also provide the script examples to run our DAG. Here, we highlight our performance as compared to this work. Note that our model is trained on Single Titan RTX GPU and the numbers of DiffAgument are reproduced from the original code on our machine for a fair comparison..
+We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these files in the original code. We also provide the script examples to run our DAG. Here, we highlight our performance as compared to this work. Note that our model is trained on Single Titan RTX GPU and the numbers of DiffAgument are reproduced from the original code on our machine for a fair comparison.
 
 | Model name                               | Dataset           | is10k     | fid10k    |
 | -----------------------------------------| ------------------| --------- | --------- |
@@ -13,7 +13,7 @@ We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these fil
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
 | BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (20%)       | 8.84      | 13.1      |
 
-In the above results, we demonstrate that our model can be applied to multiple types of augmentations. Moreover, when combining more augmentations, e.g., our (rotation + cropping) and (translation + cutout) of DiffAugment, DAG can improve the baselines more significantly. To apply for your problems, you can simply add these augmentations or design ones by yourself with DAG.
+In the above results, we demonstrate that our model can be applied to multiple types of augmentations. Moreover, when combining more augmentations, e.g., our (rotation + cropping) and (translation + cutout) of DiffAugment, DAG can improve the baselines more significantly. To apply for your problems, you can add these augmentations or simply design suitable augmentations with DAG.
 
 *To be updated soon with other augmentations and datasets.*
 
