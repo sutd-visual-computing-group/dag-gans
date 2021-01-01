@@ -6,10 +6,12 @@ We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these fil
 | -----------------------------------------| ------------------| --------- | --------- |
 | BigGAN                                   | `C10` (10%)       | 7.03      | 48.3      |
 | BigGAN-DiffAugment (translation + cutout)| `C10` (10%)       | 8.40      | 23.9      |
+| BigGAN-DAG (rotation)                    | `C10` (10%)       | 7.87      | 36.9      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (10%)       | 8.63      | 23.6      |
 | BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (10%)       | 8.65      | 21.3      |
 | BigGAN                                   | `C10` (20%)       | 8.51      | 22.3      |
 | BigGAN-DiffAugment (translation + cutout)| `C10` (20%)       | 8.79      | 14.6      |
+| BigGAN-DAG (rotation)                    | `C10` (20%)       | 8.98      | 17.6      |
 | BigGAN-DAG (rotation + cropping)         | `C10` (20%)       | 8.83      | 14.1      |
 | BigGAN-DAG (rotation + cropping + translation + cutout)         | `C10` (20%)       | 8.84      | 13.1      |
 
