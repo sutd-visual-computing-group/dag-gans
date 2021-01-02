@@ -1,4 +1,4 @@
-We implement our DAG on its BigGAN based on [DiffAugment](https://github.com/mit-han-lab/data-efficient-gans) for a fair comparision to this work. 
+We implement our DAG on BigGAN backbone based on [DiffAugment](https://github.com/mit-han-lab/data-efficient-gans) for a fair comparision to this work. 
 
 We update our BigGAN + DAG code on CIFAR-10 first. Simply substituting these files in the original code. We also provide the script examples to run our DAG. Here, we highlight our performance as compared to this work. Note that our model is trained on Single Titan RTX GPU and the numbers of DiffAgument are reproduced from the original code on our machine for a fair comparison.
 
