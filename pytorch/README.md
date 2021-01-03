@@ -125,7 +125,7 @@ def G_loss_func(x_real, x_fake, netD):
 To use more augmentation techniques: 
 
 ```python
-from dag.dag_pytorch import DAG
+from dag.dag import DAG
 
 ... 
 
