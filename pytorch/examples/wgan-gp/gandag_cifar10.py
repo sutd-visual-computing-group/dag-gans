@@ -9,6 +9,7 @@ import tflib.cifar10
 import tflib.plot
 import tflib.inception_score
 
+import os
 import numpy as np
 
 
@@ -18,14 +19,17 @@ from torch import nn
 from torch import autograd
 from torch import optim
 
-from dag.dag_pytorch import DAG
+from dag.dag import DAG
 
 # Download CIFAR-10 (Python version) at
 # https://www.cs.toronto.edu/~kriz/cifar.html and fill in the path to the
 # extracted files here!
-DATA_DIR = '../../model_inversion/code/data_free_generative_model_inversion/generative_deepinversion/data/cifar-10-batches-py/'
+DATA_DIR = '../../model_inversion/code/dfgan/generative_deepinversion/data/cifar-10-batches-py/'
 if len(DATA_DIR) == 0:
     raise Exception('Please specify path to data directory in gan_cifar.py!')
+OUR_DIR  = './tmp/cifar10_dag_fliprot+cropping/'
+if not os.path.exists(OUR_DIR):
+    os.mkdir(OUR_DIR)
 
 MODE = 'wgan-gp' # Valid options are dcgan, wgan, or wgan-gp
 DIM = 128 # This overfits substantially; you're probably better off with 64
@@ -104,7 +108,7 @@ class Discriminator(nn.Module):
         return output, outputs_dag
 
 
-def calc_gradient_penalty(netD, real_data, fake_data):
+def calc_gradient_penalty(netD, real_data, fake_data, dag=False, dag_idx=0):
     # print "real_data: ", real_data.size(), fake_data.size()
     alpha = torch.rand(BATCH_SIZE, 1)
     alpha = alpha.expand(BATCH_SIZE, int(real_data.nelement()/BATCH_SIZE)).contiguous().view(BATCH_SIZE, 3, 32, 32)
@@ -116,7 +120,11 @@ def calc_gradient_penalty(netD, real_data, fake_data):
         interpolates = interpolates.cuda(gpu)
     interpolates = autograd.Variable(interpolates, requires_grad=True)
 
-    disc_interpolates, _ = netD(interpolates)
+    if dag==False:
+       disc_interpolates, _ = netD(interpolates)
+    else:
+       _, disc_interpolates = netD(interpolates)
+       disc_interpolates = disc_interpolates[dag_idx]
 
     gradients = autograd.grad(outputs=disc_interpolates, inputs=interpolates,
                               grad_outputs=torch.ones(disc_interpolates.size()).cuda(gpu) if use_cuda else torch.ones(
@@ -127,22 +135,31 @@ def calc_gradient_penalty(netD, real_data, fake_data):
     gradient_penalty = ((gradients.norm(2, dim=1) - 1) ** 2).mean() * LAMBDA
     return gradient_penalty
 
-def D_loss_func(x_real, x_fake, netD):
+def D_loss_func(x_real, x_fake, netD, dag=False, dag_idx=0):
     # real
-    d_real, _ = netD(x_real)
+    if dag==False:
+       d_real, _ = netD(x_real)
+       d_fake, _ = netD(x_fake)
+    else:
+       _, d_reals = netD(x_real)
+       d_real = d_reals[dag_idx]
+       _, d_fakes = netD(x_fake)
+       d_fake = d_fakes[dag_idx]
     d_real    = d_real.mean()
-    # fake    
-    d_fake, _ = netD(x_fake)
     d_fake    = d_fake.mean()
     # train with gradient penalty
-    gp = calc_gradient_penalty(netD, x_real, x_fake)    
+    gp = calc_gradient_penalty(netD, x_real, x_fake, dag=dag, dag_idx=dag_idx)
     # D cost
     d_cost = d_fake - d_real + gp
     return d_cost
 
-def G_loss_func(x_real, x_fake, netD):
+def G_loss_func(x_real, x_fake, netD, dag=False, dag_idx=0):
     # fake    
-    d_fake, _ = netD(x_fake)
+    if dag==False:
+       d_fake, _ = netD(x_fake)
+    else:
+       _, d_fakes = netD(x_fake)
+       d_fake = d_fakes[dag_idx]       
     d_fake    = d_fake.mean()
     # D cost
     g_cost = -d_fake
@@ -186,7 +203,7 @@ def generate_image(frame, netG):
     samples = samples.mul(0.5).add(0.5)
     samples = samples.cpu().data.numpy()
 
-    lib.save_images.save_images(samples, './tmp/cifar10/samples_{}.png'.format(frame))
+    lib.save_images.save_images(samples, OUR_DIR + '/samples_{}.png'.format(frame))
 
 # For calculating inception score
 def get_inception_score(G, ):
@@ -269,15 +286,15 @@ for iteration in range(ITERS):
     optimizerG.step()
 
     # Write logs and save samples
-    lib.plot.plot('./tmp/cifar10/train disc cost', D_cost.cpu().data.numpy())
-    lib.plot.plot('./tmp/cifar10/time', time.time() - start_time)
-    lib.plot.plot('./tmp/cifar10/train gen cost', G_cost.cpu().data.numpy())
+    lib.plot.plot(OUR_DIR + 'train disc cost', D_cost.cpu().data.numpy())
+    lib.plot.plot(OUR_DIR + 'time', time.time() - start_time)
+    lib.plot.plot(OUR_DIR + 'train gen cost', G_cost.cpu().data.numpy())
     #lib.plot.plot('./tmp/cifar10/wasserstein distance', Wasserstein_D.cpu().data.numpy())
 
     # Calculate inception score every 1K iters
     if False and iteration % 1000 == 999:
         inception_score = get_inception_score(netG)
-        lib.plot.plot('./tmp/cifar10/inception score', inception_score[0])
+        lib.plot.plot(OUR_DIR + 'inception score', inception_score[0])
 
     # Calculate dev loss and generate samples every 100 iters
     if iteration % 100 == 99:
