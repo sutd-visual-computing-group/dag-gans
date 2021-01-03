@@ -24,7 +24,7 @@ from dag.dag import DAG
 # Download CIFAR-10 (Python version) at
 # https://www.cs.toronto.edu/~kriz/cifar.html and fill in the path to the
 # extracted files here!
-DATA_DIR = '../../model_inversion/code/dfgan/generative_deepinversion/data/cifar-10-batches-py/'
+DATA_DIR = './data/cifar-10-batches-py/'
 if len(DATA_DIR) == 0:
     raise Exception('Please specify path to data directory in gan_cifar.py!')
 OUR_DIR  = './tmp/cifar10_dag_fliprot+cropping/'
