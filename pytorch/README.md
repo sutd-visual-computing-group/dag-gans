@@ -19,11 +19,17 @@ dag = DAG(D_loss_func, G_loss_func, augment_type=['fliprot'])
 n_augments = dag.get_num_of_augments()
 ...
 
+loss_d += dag.compute_discriminator_loss(x_real, x_fake, netD)
+loss_g += dag.compute_generator_loss(x_real, x_fake, netD)
+
 ```
 - *augument_type*: the augmentation methods to be used in DAG.
 - *D_loss_func*: the function of the discriminator loss (see step 3).
 - *G_loss_func*: the function of the generator loss (see step 3).
 - *get_num_of_augments()*: to return the number of heads to implement DAG in the discriminator.
+- *netD*: the discriminator network (see step 2)
+- x_real: the batch of original real samples.
+- x_fake: the batch of original fake samples.
 
 #### Step 2: Modifying the outputs of the discriminator
 
