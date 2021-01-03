@@ -35,7 +35,7 @@ class DAG(object):
             x_fake_aug = augmenting_data(x_fake, aug_type, config.augment_list[aug_type])
             n_aug_type = len(x_real_aug)
             for i in range(n_aug_type):
-                d_loss += self.D_loss_func(x_real_aug[i], x_fake_aug[i], netD)
+                d_loss += self.D_loss_func(x_real_aug[i], x_fake_aug[i], netD, dag=True, dag_idx=i)
         
         d_loss = d_loss / n_type
         
@@ -52,7 +52,7 @@ class DAG(object):
             x_fake_aug = augmenting_data(x_fake, aug_type, config.augment_list[aug_type])
             n_aug_type = len(x_real_aug)
             for i in range(n_aug_type):
-                g_loss += self.G_loss_func(x_real_aug[i], x_fake_aug[i], netD)
+                g_loss += self.G_loss_func(x_real_aug[i], x_fake_aug[i], netD, dag=True, dag_idx=i)
         
         g_loss = g_loss / n_type
 

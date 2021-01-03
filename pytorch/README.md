@@ -98,29 +98,37 @@ To use DAG, we need the functions of computing losses of D and G to apply it aut
 ##### WGAN loss
 
 ```python
-def D_loss_func(x_real, x_fake, netD):
-    # real
-    d_real, _ = netD(x_real)
+def D_loss_func(x_real, x_fake, netD, dag=False, dag_idx=0):
+    if dag==False:
+       d_real, _ = netD(x_real)
+       d_fake, _ = netD(x_fake)
+    else:
+       _, d_reals = netD(x_real)
+       d_real = d_reals[dag_idx]
+       _, d_fakes = netD(x_fake)
+       d_fake = d_fakes[dag_idx]
     d_real    = d_real.mean()
-    # fake    
-    d_fake, _ = netD(x_fake)
-    d_fake,   = d_fake.mean()
+    d_fake    = d_fake.mean()
     # train with gradient penalty
-    gp = calc_gradient_penalty(netD, x_real, x_fake)    
-    # D cost
+    gp = calc_gradient_penalty(netD, x_real, x_fake, dag=dag, dag_idx=dag_idx)
     d_cost = d_fake - d_real + gp
     return d_cost
 ```
 
 ```python
-def G_loss_func(x_real, x_fake, netD):
-    # fake    
-    d_fake, _ = netD(x_fake)
+def G_loss_func(x_real, x_fake, netD, dag=False, dag_idx=0):
+    if dag==False:
+       d_fake, _ = netD(x_fake)
+    else:
+       _, d_fakes = netD(x_fake)
+       d_fake = d_fakes[dag_idx]
     d_fake    = d_fake.mean()
-    # D cost
     g_cost = -d_fake
     return g_cost
 ```
+
+- *dag*: the flag get the discriminator output of original or dag.
+- *dag_idx*: the index of dag output to be used when *dag=True*
 
 To use more augmentation techniques: 
 
