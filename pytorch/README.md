@@ -138,7 +138,7 @@ from dag.dag import DAG
 
 ... 
 
-dag  = DAG(D_loss_func, G_loss_func, augment_type=['rotation', 'cropping'], augment_type=[1.0, 1.0])
+dag  = DAG(D_loss_func, G_loss_func, augment_type=['rotation', 'cropping'], augment_weight=[1.0, 1.0])
 n_augments = dag.get_num_of_augments()
 ...
 
