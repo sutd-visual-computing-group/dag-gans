@@ -15,7 +15,7 @@ from dag.dag import DAG
 
 ... 
 
-dag = DAG(D_loss_func, G_loss_func, augment_type=['fliprot'])
+dag = DAG(D_loss_func, G_loss_func, augment_type=['rotation'], augment_weight=[1.0])
 n_augments = dag.get_num_of_augments()
 ...
 
@@ -24,6 +24,7 @@ loss_g += dag.compute_generator_loss(x_real, x_fake, netD)
 
 ```
 - *augument_type*: the augmentation methods to be used in DAG.
+- *augment_weight*: the corresponding weights for the augmentions to used in DAG.
 - *D_loss_func*: the function of the discriminator loss (see step 3).
 - *G_loss_func*: the function of the generator loss (see step 3).
 - *get_num_of_augments()*: to return the number of heads to implement DAG in the discriminator.
@@ -137,9 +138,8 @@ from dag.dag import DAG
 
 ... 
 
-dag_fliprot  = DAG(D_loss_func, G_loss_func, augment_type=['fliprot'])
-dag_cropping = DAG(D_loss_func, G_loss_func, augment_type=['cropping'])
-n_augments = dag_fliprot.get_num_of_augments() + dag_cropping.get_num_of_augments()
+dag  = DAG(D_loss_func, G_loss_func, augment_type=['rotation', 'cropping'], augment_type=[1.0, 1.0])
+n_augments = dag.get_num_of_augments()
 ...
 
 ```

@@ -4,11 +4,12 @@ from   dag.utils import augmenting_data
 import dag.config as config
 
 class DAG(object):
-    def __init__(self, D_loss_func, G_loss_func, augument_type=['rotation']):
+    def __init__(self, D_loss_func, G_loss_func, augument_type=['rotation'], augument_weight=[1.0]):
         print('Initializing DAG ...')
         self.D_loss_func   = D_loss_func
         self.G_loss_func   = G_loss_func
         self.augument_type = augument_type
+        self.augument_weight = augument_weight
 
     def get_num_of_augments(self):
         num_of_augments = 0
@@ -29,16 +30,18 @@ class DAG(object):
         ''' compute D loss for original augmented real/fake data samples '''
         d_loss = 0
         n_type = len(self.augument_type)
-        
-        for aug_type in self.augument_type:
-            x_real_aug = augmenting_data(x_real, aug_type, config.augment_list[aug_type])
-            x_fake_aug = augmenting_data(x_fake, aug_type, config.augment_list[aug_type])
-            n_aug_type = len(x_real_aug)
-            for i in range(n_aug_type):
-                d_loss += self.D_loss_func(x_real_aug[i], x_fake_aug[i], netD, dag=True, dag_idx=i)
-        
-        d_loss = d_loss / n_type
-        
+        aug_idx  = 0
+        aug_w    = 0
+        for i in range(len(self.augument_type)):
+            x_real_aug = augmenting_data(x_real, self.augument_type[i], config.augment_list[self.augument_type[i]])
+            x_fake_aug = augmenting_data(x_fake, self.augument_type[i], config.augment_list[self.augument_type[i]])
+            aug_w = self.augument_weight[i]
+            n_aug_type = len(config.augment_list[self.augument_type[i]])
+            d_loss_aug = 0
+            for j in range(n_aug_type):
+                d_loss_aug += self.D_loss_func(x_real_aug[j], x_fake_aug[j], netD, dag=True, dag_idx=aug_idx+j)
+            d_loss = d_loss + aug_w * d_loss_aug / n_aug_type
+            aug_idx += n_aug_type
         return d_loss
 
     def compute_generator_loss(self, x_real, x_fake, netD):
@@ -46,18 +49,19 @@ class DAG(object):
         ''' compute G loss for original augmented real/fake data samples '''
         g_loss = 0
         n_type = len(self.augument_type)
-        
-        for aug_type in self.augument_type:
-            x_real_aug = augmenting_data(x_real, aug_type, config.augment_list[aug_type])
-            x_fake_aug = augmenting_data(x_fake, aug_type, config.augment_list[aug_type])
-            n_aug_type = len(x_real_aug)
-            for i in range(n_aug_type):
-                g_loss += self.G_loss_func(x_real_aug[i], x_fake_aug[i], netD, dag=True, dag_idx=i)
-        
-        g_loss = g_loss / n_type
-
+        aug_idx  = 0
+        aug_w    = 0        
+        for i in range(len(self.augument_type)):
+            x_real_aug = augmenting_data(x_real, self.augument_type[i], config.augment_list[self.augument_type[i]])
+            x_fake_aug = augmenting_data(x_fake, self.augument_type[i], config.augment_list[self.augument_type[i]])
+            aug_w = self.augument_weight[i]
+            n_aug_type = len(config.augment_list[self.augument_type[i]])
+            g_loss_aug = 0
+            for j in range(n_aug_type):
+                g_loss_aug += self.G_loss_func(x_real_aug[j], x_fake_aug[j], netD, dag=True, dag_idx=aug_idx+j)
+            g_loss = g_loss + aug_w * g_loss_aug / n_aug_type
+            aug_idx += n_aug_type
         return g_loss
-
 
 if __name__ == "__main__":
 
