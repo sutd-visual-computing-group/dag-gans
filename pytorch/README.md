@@ -15,8 +15,8 @@ from dag.dag import DAG
 
 ... 
 
-dag = DAG(D_loss_func, G_loss_func, augment_type=['rotation'], augment_weight=[1.0])
-n_augments = dag.get_num_of_augments()
+dag = DAG(D_loss_func, G_loss_func, policy=['rotation'], policy_weight=[1.0])
+n_augments = dag.get_num_of_augments_from_policy()
 ...
 
 loss_d += dag.compute_discriminator_loss(x_real, x_fake, netD)
@@ -24,10 +24,10 @@ loss_g += dag.compute_generator_loss(x_real, x_fake, netD)
 
 ```
 - *augument_type*: the augmentation methods to be used in DAG.
-- *augment_weight*: the corresponding weights for the augmentions to used in DAG.
+- *policy_weight*: the corresponding weights for the augmentions to used in DAG.
 - *D_loss_func*: the function of the discriminator loss (see step 3).
 - *G_loss_func*: the function of the generator loss (see step 3).
-- *get_num_of_augments()*: to return the number of heads to implement DAG in the discriminator.
+- *get_num_of_augments_from_policy()*: to return the number of heads to implement DAG in the discriminator.
 - *netD*: the discriminator network (see step 2)
 - x_real: the batch of original real samples.
 - x_fake: the batch of original fake samples.
@@ -138,8 +138,8 @@ from dag.dag import DAG
 
 ... 
 
-dag  = DAG(D_loss_func, G_loss_func, augment_type=['rotation', 'cropping'], augment_weight=[1.0, 1.0])
-n_augments = dag.get_num_of_augments()
+dag  = DAG(D_loss_func, G_loss_func, policy=['rotation', 'cropping'], policy_weight=[1.0, 1.0])
+n_augments = dag.get_num_of_augments_from_policy()
 ...
 
 ```
