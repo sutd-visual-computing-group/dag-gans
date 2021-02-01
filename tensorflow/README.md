@@ -89,8 +89,7 @@ def G_loss_func(x_real, x_fake, netD, dag=False, dag_idx=0):
     else:
        _, d_fakes = netD(x_fake)
        d_fake = d_fakes[dag_idx]
-    d_fake    = d_fake.mean()
-    g_cost = tf.reduce_mean(tf.nn.softplus(-fake_scores))
+    g_cost = tf.reduce_mean(tf.nn.softplus(-d_fake))
     return g_cost
 ```
 
